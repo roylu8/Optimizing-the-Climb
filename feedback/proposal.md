@@ -1,3 +1,15 @@
+### Regrade
+
+Sophisticated (100%)
+
+Dijkstra's is pretty fast, especially on a sparse graph like ours (|E| <= 8 |V| = O(|V|)). On a typical laptop (1-3GHz), C++ Dijkstra's should comfortably process 10^6 nodes in \~1 second. Let's try to implement and benchmark the time before ruling out large maps. Also, we should get an initial implementation early since we might need to adjust the energy expenditure formula.
+
+OpenGL is a great plus (again, not required but it'd be awesome to see). To start with (or determining its viability), take a look at one of many OpenGL tutorials on terrain rendering from heightmaps (tessellation/triangulation.
+
+I'm excited to see how the most energy efficient paths would look like.
+
+By the way, there are still some remaining texts related to hydraulic erosion from previous iteration (e.g. Section 2c).
+
 ### Grade
 
 Incomplete (0%)
