@@ -26,3 +26,17 @@ However, due to everyone’s busy course load and David getting COVID this week,
 
 ### Goals for the following week
 For next week, our goal is to have our pseudocode done and begin our project by implementing the first algorithm.
+
+# Week 3 (4/11):
+
+### Goals of the week and were they accomplished?
+Unfortunately, not much progress has been made for the main code file of our project but catching up from EOH left us unable to properly write our research down. The main goal of the week is to set up the header files of possible functions we’ll be using and plan out the flow of the code.
+
+### Tasks of each member
+Individually, we are to research the algorithms and then discuss our understanding of them as we plan out pseudocode for our project. Gathering up resources for Dijkstra's Algorithm.
+
+### Obstacles to Goals
+Time management with mazes took up a lot of time and left us catching up with other classes. 
+
+### Goals for the following week
+Next, we have a big meetup to code on Friday after a heavy exam week. The goals are to get the first algorithm for input images working.
