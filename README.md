@@ -1,4 +1,4 @@
-# Hydraulic Erosion Simulation
+# Optimizing the Climb
 ### Contributors: 
 * Jumana Schmidt (jumanas2)
 * David Medina (davidrm3)
