@@ -28,7 +28,7 @@ private:
 
   struct Edge{
     int index;
-    int edge; // = luminance diff
+    int edge; // = luminance diff = edge weight
     // AdjEdge(int index, int luminance){
     //   Edge edgeup = index +;
     // }

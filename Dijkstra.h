@@ -25,7 +25,7 @@ class Dijkstras{
 
     //ImagetoVertices(vector<vector<int>> image);
     Dijkstras(int source, int destination);
-    int Dijkstra::getAdjacentEdgeWeight()
+    // int Dijkstra::getAdjacentEdgeWeight()
 
     
   private:
