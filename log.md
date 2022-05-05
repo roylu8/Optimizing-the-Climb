@@ -40,3 +40,17 @@ Time management with mazes took up a lot of time and left us catching up with ot
 
 ### Goals for the following week
 Next, we have a big meetup to code on Friday after a heavy exam week. The goals are to get the first algorithm for input images working.
+
+# Week 4 (4/18):
+
+### Goals of the week and were they accomplished?
+Worked on Dijkstras algorithm and struggled to convert a PNG into a viable graph.
+
+### Tasks of each member
+Jumana and David worked on getting some of the class information within the dijkstras class. Roy and Will tried to figure out on how to convert a PNG into a graph.
+
+### Obstacles to Goals
+Got stuck with understanding what variables each map and pair was going to use.
+
+### Goals for the following week
+Figure out if the project is viable because we are starting to explode with ideas. Some members are suggesting switching to a simpler plane project that was suggested at the beginning.
