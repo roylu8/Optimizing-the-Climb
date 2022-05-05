@@ -1,5 +1,9 @@
 #include "cs225/PNG.h"
 #include "cs225/HSLAPixel.h"
+#include <vector>
+#include <unordered_map>
+#include <list>
+#include <queue>
 using cs225::HSLAPixel;
 using cs225::PNG;
 

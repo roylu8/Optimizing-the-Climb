@@ -11,12 +11,12 @@ Graph::Graph(PNG image){
   height = image.height();
 
   // get index and luminance vectors from image
-  for(unsigned int i=0; i<width; i++){
-    for(unsigned int j=0; j<height; j++){
+  for(int i=0; i<width; i++){
+    for(int j=0; j<height; j++){
       HSLAPixel & pixel = image.getPixel(i,j);
       
-      index[i + j*width].push_back(i + j*width);
-      luminance[i + j*image.width()].push_back(pixel.l);
+      index.push_back(i + j*width);
+      luminance.push_back(pixel.l);
     }
   }
 
@@ -41,11 +41,11 @@ Graph::Graph(PNG image){
         // Edge edgedown;
         // Edge edgeright;
         edgeup.index = upindex;
-        edgeup.edge = getLuminanceDifference(string "up", x,y);
+        edgeup.edge = getLuminanceDifference("up", x,y);
         edgedown.index = downindex;
-        edgedown.edge = getLuminanceDifference(string "down", x,y);
+        edgedown.edge = getLuminanceDifference("down", x,y);
         edgeright.index = rightindex;
-        edgeright.edge = getLuminanceDifference(string "right", x,y);
+        edgeright.edge = getLuminanceDifference("right", x,y);
         
         adjnodes.push_back(edgeup);
         adjnodes.push_back(edgedown);
@@ -56,11 +56,11 @@ Graph::Graph(PNG image){
         // Edge edgeright;
         // Edge edgeleft;
         edgedown.index = downindex;
-        edgedown.edge = getLuminanceDifference(string "down", x,y);
+        edgedown.edge = getLuminanceDifference("down", x,y);
         edgeleft.index = leftindex;
-        edgeleft.edge = getLuminanceDifference(string "left", x,y);
+        edgeleft.edge = getLuminanceDifference("left", x,y);
         edgeright.index = rightindex;
-        edgeright.edge = getLuminanceDifference(string"right", x,y);
+        edgeright.edge = getLuminanceDifference("right", x,y);
 
         adjnodes.push_back(edgedown);
         adjnodes.push_back(edgeleft);
@@ -72,11 +72,11 @@ Graph::Graph(PNG image){
         // Edge edgedown;
         // Edge edgeleft;
         edgeup.index = upindex;
-        edgeup.edge = getLuminanceDifference(string "up", x,y);
+        edgeup.edge = getLuminanceDifference("up", x,y);
         edgedown.index = downindex;
-        edgedown.edge = getLuminanceDifference(string "down", x,y);
+        edgedown.edge = getLuminanceDifference("down", x,y);
         edgeleft.index = leftindex;
-        edgeleft.edge = getLuminanceDifference(string "left", x,y);
+        edgeleft.edge = getLuminanceDifference("left", x,y);
         
         adjnodes.push_back(edgeup);
         adjnodes.push_back(edgedown);
@@ -87,11 +87,11 @@ Graph::Graph(PNG image){
         Edge edgeleft;
         Edge edgeright;
         edgeup.index = upindex;
-        edgeup.edge = getLuminanceDifference(string "up", x,y);
+        edgeup.edge = getLuminanceDifference("up", x,y);
         edgeright.index = rightindex;
-        edgeright.edge = getLuminanceDifference(string"right", x,y);
+        edgeright.edge = getLuminanceDifference("right", x,y);
         edgeleft.index = leftindex;
-        edgeleft.edge = getLuminanceDifference(string "left", x,y);
+        edgeleft.edge = getLuminanceDifference("left", x,y);
 
         adjnodes.push_back(edgeup);
         adjnodes.push_back(edgeleft);
@@ -101,9 +101,9 @@ Graph::Graph(PNG image){
         // Edge edgedown;
         // Edge edgeright;
         edgedown.index = downindex;
-        edgedown.edge = getLuminanceDifference(string "down", x,y);
+        edgedown.edge = getLuminanceDifference("down", x,y);
         edgeright.index = rightindex;
-        edgeright.edge = getLuminanceDifference(string"right", x,y);
+        edgeright.edge = getLuminanceDifference("right", x,y);
 
         adjnodes.push_back(edgedown);
         adjnodes.push_back(edgeright);
@@ -112,9 +112,9 @@ Graph::Graph(PNG image){
         // Edge edgeup;
         // Edge edgeleft;
         edgeup.index = upindex;
-        edgeup.edge = getLuminanceDifference(string "up", x,y);
+        edgeup.edge = getLuminanceDifference("up", x,y);
         edgeleft.index = leftindex;
-        edgeleft.edge = getLuminanceDifference(string "left", x,y);
+        edgeleft.edge = getLuminanceDifference("left", x,y);
 
         adjnodes.push_back(edgeup);
         adjnodes.push_back(edgeleft);
@@ -123,9 +123,9 @@ Graph::Graph(PNG image){
         // Edge edgedown;
         // Edge edgeleft;
         edgedown.index = downindex;
-        edgedown.edge = getLuminanceDifference(string "down", x,y);
+        edgedown.edge = getLuminanceDifference("down", x,y);
         edgeleft.index = leftindex;
-        edgeleft.edge = getLuminanceDifference(string "left", x,y);
+        edgeleft.edge = getLuminanceDifference("left", x,y);
 
         adjnodes.push_back(edgedown);
         adjnodes.push_back(edgeleft);
@@ -134,9 +134,9 @@ Graph::Graph(PNG image){
         // Edge edgeup;
         // Edge edgeright;
         edgeup.index = upindex;
-        edgeup.edge = getLuminanceDifference(string "up", x,y);
+        edgeup.edge = getLuminanceDifference("up", x,y);
         edgeright.index = rightindex;
-        edgeright.edge = getLuminanceDifference(string"right", x,y);
+        edgeright.edge = getLuminanceDifference("right", x,y);
 
         adjnodes.push_back(edgeup);
         adjnodes.push_back(edgeright);
@@ -147,26 +147,24 @@ Graph::Graph(PNG image){
         // Edge edgeright;
         // Edge edgeleft;
         edgeup.index = upindex;
-        edgeup.edge = getLuminanceDifference(string("up"), x,y);
+        edgeup.edge = getLuminanceDifference("up", x,y);
         adjnodes.push_back(edgeup);
         edgedown.index = downindex;
-        edgedown.edge = getLuminanceDifference(string("down"), x,y);
+        edgedown.edge = getLuminanceDifference("down", x,y);
         adjnodes.push_back(edgedown);
         edgeright.index = rightindex;
-        edgeright.edge = getLuminanceDifference(string("right"), x,y);
+        edgeright.edge = getLuminanceDifference("right", x,y);
         adjnodes.push_back(edgeright);
         edgeleft.index = leftindex;
-        edgeleft.edge = getLuminanceDifference(string "left", x,y);
+        edgeleft.edge = getLuminanceDifference( "left", x,y);
         adjnodes.push_back(edgeleft);
       }  
       adjacencyList[x + y*width] = adjnodes;
     }
   }
-}
 
 int Graph::getLuminanceDifference(string direction, int x, int y){
   int difference = 0;
-  string "up"
   if(direction == "up"){
     difference = luminance[x + (y-1)*width] - luminance[x + y*width];
     if(difference < 0){
@@ -175,7 +173,7 @@ int Graph::getLuminanceDifference(string direction, int x, int y){
     return difference;
   }
   else if(direction == "down"){
-    difference = luminance[x + (y+1)*width)] - luminance[x + y*width];
+    difference = luminance[x + (y+1)*width] - luminance[x + y*width];
     if(difference < 0){
       difference *= -1;
     }
