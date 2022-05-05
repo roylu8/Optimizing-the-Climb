@@ -4,6 +4,7 @@
 #include <vector>
 #include <bits/stdc++.h>
 #include <map>
+#include <Edge>
 
 using namespace std;
 using namespace cs225;
@@ -24,14 +25,16 @@ class Dijkstras{
 
     //ImagetoVertices(vector<vector<int>> image);
     Dijkstras(int source, int destination);
+    int Dijkstra::getAdjacentEdgeWeight()
 
     
   private:
     typedef int distance;
     unordered_map<int, distance> distances;
     unordered_map<int,int> previous;
-    typedef pair<int,int> indexNdistance;
-    priority_queue<indexNdistance> pq;
+    typedef pair<int,int> distanceNdindx;
+    priority_queue<distanceNdindx> pq;
+    unordered_map<int, bool> visited;
 
     
 }

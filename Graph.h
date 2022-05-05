@@ -33,9 +33,11 @@ private:
     //   Edge edgeup = index +;
     // }
   };
-  vector<vector<int>> index;
-  vector<vector<int>> luminance;
+  vector<int> index;
+  vector<int> luminance;
   unordered_map<int, list<Edge>> adjacencyList; // index, (node, luminace difference btwn nodes)
+  int width; // PNG width
+  int height; // PNG height
 };
 
 

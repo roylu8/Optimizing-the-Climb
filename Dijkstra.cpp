@@ -35,28 +35,66 @@ using namespace std;
 //   }
 // }
 
-Dijkstras::Dijkstras(int source, int destination){ // take in indices of source and d
-    for(auto i : index){
-        visited[index[i]] = false; // initialize visited bool to false
+vector<int> Dijkstras::Dijkstras(int source, int destination){ // take in indices of source and d
+    for(auto &v : visited){
+        v = false; // initialize visited bool to false
     }
-    for(auto i : index){
-        distances[index[i]] = 0x3f3f3f3f; // initialize distances to infinity except start
+    for(auto &i : distances){
+        i = 0x3f3f3f3f; // initialize distances to infinity except start
     }
     distances[source] = 0; // set source distance to zero
+    int newdist = 0;
 
     pq.push(make_pair(source, 0)); // start priority queue
 
      while(pq.size() != 0){
         // get current node
+        int edgeweight = 0;
+        int currindex = pq.top().first;
         pq.pop();
+        // check if node is already visited
+        if(visited[currindex] == true){break;}
+        // set as visited
+        visited[currindex] = true;
         // get neighbors
-        for(unsigned int i=0; i<adjacencyList.size(); i++){
-            // if v
-
+        for(unsigned int i=currindex; i<adjanceyList.size(); i++){
+            for(unsigned int neightbor=0; neighbor<adjacencyList[currindex].size(); neighbor++){ 
+            List<Edge> temp = adjacencyList[currindex];
+            int neighborindex = temp[neighbor].first;
+            if(visited[neighborindex] == true){
+                continue;
+            }
+            else{
+                edgeweight = getAdjacentEdgeWeight(i);
+                newdist = distances[currindex] + edgeweight;
+            }
+            if(newdist < dist[index[i]]){
+                distances[index[i]] = newdist;
+                pq.push(make_pair(distances[index[i]], index[i]));
+                previous[index[i]] = currindex;
+            }
+            }
         }
-        adjacencyList[]
-  }
-  
-  
+        vector<int> shortest;
+
+        int curr = destination;
+        int prev = previous[curr];
+
+        
+
+
+        return shortest;
+  } 
 }
 
+int Dijkstra::getAdjacentEdgeWeight(int index, & adjanceyList){
+    list<Edge> templist = adjacencyList[index];
+
+
+
+}
+
+//image that is 2D
+//want to map image to distance
+// for i, for j
+// distance[index[i][j]] = somefunction(image[i][j])
