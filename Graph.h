@@ -20,28 +20,26 @@ Another fucntion for weights
 
 */
 
-class Graph {
+class Graph
+{
 
 public:
-  Graph(PNG image); // take in image & read luminance values
-  int getLuminanceDifference(string direction, int i, int j);
-  //getAdjacent(); // get adjacent vertices & weighted edges
-
-
-private:
-
-  struct Edge{
+  struct Edge
+  {
     int index;
     int edge; // = luminance diff = edge weight
     // AdjEdge(int index, int luminance){
     //   Edge edgeup = index +;
     // }
   };
+  Graph(PNG &image); // take in image & read luminance values
+  int getLuminanceDifference(string direction, int i, int j);
+  unordered_map<int, list<Edge>> adjacencyList; // index, (node, luminace difference btwn nodes)
+  // getAdjacent(); // get adjacent vertices & weighted edges
+
+private:
   vector<int> index;
   vector<int> luminance;
-  unordered_map<int, list<Edge>> adjacencyList; // index, (node, luminace difference btwn nodes)
-  int width; // PNG width
+  int width;  // PNG width
   int height; // PNG height
 };
-
-

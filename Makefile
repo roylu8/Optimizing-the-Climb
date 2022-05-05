@@ -1,6 +1,6 @@
 
 # Executable names:
-EXE = hike
+EXE =
 TEST = test
 
 # Add all object files needed for compiling:

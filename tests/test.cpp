@@ -4,15 +4,20 @@
 #include <unordered_map>
 #include <iomanip>
 
-
 #include "../Graph.h"
-#include "../Djikstras.h"
+#include "../Dijkstra.h"
+#include "../cs225/PNG.h"
+#include "../cs225/HSLAPixel.h"
 
-#include "../catch/catch.hpp"
+#include "../cs225/catch/catch.hpp"
 
 
-using namespace std;
+using namespace cs225;
 
 TEST_CASE("test"){
-    REQUIRE 0==0;
+std::cout << "testing"<<std::endl;
+PNG poopopo;
+poopopo.readFromFile("images/5by5.png");
+Graph hewo(poopopo);
+    REQUIRE (0==0);
 }
