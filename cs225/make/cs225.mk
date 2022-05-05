@@ -27,10 +27,10 @@ DEPFILE_FLAGS = -MMD -MP
 WARNINGS = -pedantic -Wall -Werror -Wfatal-errors -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
 
 # Flags for compile:
-CXXFLAGS += $(CS225) -std=c++14 -stdlib=libc++ -O0 $(WARNINGS) $(DEPFILE_FLAGS) -g -c
+CXXFLAGS += $(CS225) -std=c++1y -stdlib=libc++ -O0 $(WARNINGS) $(DEPFILE_FLAGS) -g -c
 
 # Flags for linking:
-LDFLAGS += $(CS225) -std=c++14 -stdlib=libc++ -lc++abi
+LDFLAGS += $(CS225) -std=c++1y -stdlib=libc++ -lc++abi
 
 # Rule for `all` (first/default rule):
 all: $(EXE)
@@ -48,12 +48,6 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)/cs225/catch
 	@mkdir -p $(OBJS_DIR)/cs225/lodepng
 	@mkdir -p $(OBJS_DIR)/tests
-# mp_traversal specific
-	@mkdir -p $(OBJS_DIR)/imageTraversal
-	@mkdir -p $(OBJS_DIR)/colorPicker
-# mp_mosaic specific
-	@mkdir -p $(OBJS_DIR)/cs225/ColorSpace
-	@mkdir -p $(OBJS_DIR)/util
 
 # Rules for compiling source code.
 # - Every object file is required by $(EXE)
