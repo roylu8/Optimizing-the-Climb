@@ -54,3 +54,20 @@ Got stuck with understanding what variables each map and pair was going to use.
 
 ### Goals for the following week
 Figure out if the project is viable because we are starting to explode with ideas. Some members are suggesting switching to a simpler plane project that was suggested at the beginning.
+
+# Week 5 (4/25):
+
+### Goals of the week and were they accomplished?
+The goal for that week is to start the presentation and final report. As well as debug and fix up drijstikas algorithm. The presentation and report were completed up until needed final project materials. Meaning that they are ready for testing, and analysis slides. The graph class and edge cases were taken care of. This allowed for work on drijstikas algortihmn which was set up. No test cases were made yet.
+
+
+### Tasks of each member
+David and Will worked on the slides while also looking for sources for A* algorithm. Jumana and Roy focused on finishing up drijstikas algorihmn
+
+
+### Obstacles to Goals
+We all sorta started working on different versions of the graph class/drijstikas algorithm in hopes one of them will stick. This slowed down our progress since we didn’t really have a concrete way of telling which method was better until a TA from the office would show up every hour. We also feel that we reached a roadblock that we still do not know how to overcome.
+
+
+### Goals for the following week
+Finish the MP early so that we can work on the final project. Find a way to make test cases for drijstikas algorithm.
