@@ -21,13 +21,19 @@
 //luminance difference is already used for building the map, so we cannot use that
 //This acts as a precomputed heurstic
 //
+//http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
+//4 direction: Manhattan distance
+//maybe diagonal since it is to similar 
+//https://www.redblobgames.com/pathfinding/a-star/implementation.html
+//
 
 class A*
 {
 public:
-    vector<int> Dijkstras(int source, int destination);
+    vector<int> A_star(int source, int destination);
     void Render();
-    //new heustic function based on
+    //new heustic function based on diagonal 
+    double heuristic(int currindex, int destination); 
 
 private:
     typedef int distance;
