@@ -3,7 +3,8 @@
 #include <queue>
 #include <vector>
 #include <map>
-#include "Graph.h"
+#include "Graph_A.h"
+#include <cmath>
 
 
 //similar Dijkstras but it gots a heurstic added to each node
@@ -26,7 +27,7 @@
 //maybe diagonal since it is to similar 
 //https://www.redblobgames.com/pathfinding/a-star/implementation.html
 //
-
+/*
 class A*
 {
 public:
@@ -42,4 +43,40 @@ private:
     typedef pair<int, int> distanceNdindx;
     priority_queue<distanceNdindx> pq;
     std::unordered_map<int, bool> visited;
+};
+*/
+
+class Graph_A
+{
+
+public:
+
+  Graph_A(PNG image); // take in image & read luminance values
+  int getLuminanceDifference(string direction, int i, int j);
+  vector<int> A_star(int source, int destination);
+  void Render(vector<int> shortestpath);
+
+private:
+
+  struct Edge
+  {
+    int index;
+    int edge; // = luminance diff = edge weight
+  };
+
+  int width; // PNG width
+  int height; // PNG height
+
+  vector<int> index;
+  vector<int> luminance;
+  unsigned int numindex = index.size();
+  unordered_map<int, list<Edge>> adjacencyList; // index, (node, luminace difference btwn nodes)
+  
+
+  std::unordered_map<int, int> distances;
+  std::unordered_map<int,int> previous;
+  typedef pair<int,int> distanceNdindx;
+  priority_queue<distanceNdindx> pq;
+  std::unordered_map<int, bool> visited;
+  vector<int> solution;
 };
