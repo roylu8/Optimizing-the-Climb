@@ -18,6 +18,8 @@ Dijkstra(Graph, source, destination):
 */
 
 #include "Dijkstra.h"
+//maybe two checks??? 
+//check the if statement
 
 vector<int> Dijkstra::Dijkstras(int source, int destination)
 { // take in indices of source and d
