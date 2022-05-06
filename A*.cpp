@@ -1,7 +1,7 @@
 
 #include "A*.h"
 
-A*::heuristic(int source, int destination){
+A_star::heuristic(int source, int destination){
     /*
     function heuristic(node) =
     dx = abs(node.x - goal.x)
@@ -10,7 +10,7 @@ A*::heuristic(int source, int destination){
     */
 }
 
-vector<int> Dijkstra::Dijkstras(int source, int destination)
+vector<int> A_star::A_star(int source, int destination)
 { // take in indices of source and d
   for (auto &v : visited)
   {
@@ -28,8 +28,8 @@ vector<int> Dijkstra::Dijkstras(int source, int destination)
   while (pq.size() != 0)
   {
     // get current node
-    int currindex = pq.top().first;
-    pq.pop();
+    int currindex = pq.top().first; 
+    pq.pop(); //move onto next in Q
     // check if node is already visited
     if (visited[currindex] == true)
     {
@@ -51,6 +51,7 @@ vector<int> Dijkstra::Dijkstras(int source, int destination)
         }
         else
         {
+        //new distance calcluation for heurstic should go somewhere here
           int edgeweight = temp[neighbor].edge;
           newdist = distances[currindex] + edgeweight;
 
