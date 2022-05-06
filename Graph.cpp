@@ -1,6 +1,8 @@
 #include "Graph.h"
 #include "cs225/PNG.h"
 #include "cs225/HSLAPixel.h"
+#include <cmath>
+
 using cs225::HSLAPixel;
 using cs225::PNG;
 
@@ -18,7 +20,8 @@ Graph::Graph(PNG image)
       HSLAPixel &pixel = image.getPixel(j, i);
 
       index.push_back(i * width + j);
-      luminance.push_back(pixel.l * 10);
+      int currlum = abs((pixel.l * 10) - 10);
+      luminance.push_back(currlum);
     }
   }
 
@@ -112,6 +115,8 @@ Graph::Graph(PNG image)
       edgedown.edge = getLuminanceDifference("down", x, y);
       edgeright.index = rightindex;
       edgeright.edge = getLuminanceDifference("right", x, y);
+
+      // cout << edgeright.index << " " << edgeright.edge << endl;
 
       adjnodes.push_back(edgedown);
       adjnodes.push_back(edgeright);
@@ -208,7 +213,7 @@ Graph::Graph(PNG image)
 
 int Graph::getLuminanceDifference(string direction, int x, int y)
 {
-  int difference = 0;
+  int difference;
   if (direction == "up")
   {
     difference = luminance[x + (y - 1) * width] - luminance[x + y * width];
@@ -251,74 +256,75 @@ int Graph::getLuminanceDifference(string direction, int x, int y)
   }
 }
 
-vector<int> Graph::Dijkstras(int source, int destination)
+vector<int> Graph::Dijkstras(unsigned int source, unsigned int destination)
 { // take in indices of source and d
+  const int INF = 0x3f3f3f3f;
   for (unsigned int i = 0; i < numindex; i++)
   {
     visited[i] = false; // initialize visited bool to false
   }
   for (unsigned int j = 0; j < index.size(); j++)
   {
-    distances[j] = -1; // initialize distances
+    distances[j] = INF; // initialize distances
   }
   distances[source] = 0; // set source distance to zero
   int newdist = 0;
 
-  pq.push(make_pair(source, 0)); // start priority queue
+  pq.push(make_pair(0, source)); // start priority queue
 
   while (pq.size() != 0)
   {
     // get current node
-    unsigned int currindex = pq.top().first;
+    unsigned int currindex = pq.top().second;
+    // cout<< currindex << endl;
     pq.pop();
     // check if node is already visited
-    if (visited[currindex] == true)
-    {
-      break;
-    } // continue??
-    // set as visited
-    visited[currindex] = true; // if curr index visted break
-    // get neighbors
-    // list<Edge> temp = adjacencyList[currindex];
-    // auto it = temp.begin();
-    // advance(it,1);
+    // if(visited[currindex] == true){continue;} // if curr index visted break
+    // visited[currindex] = true; // set current node as visited
 
-    // cout<< it->index << endl;
-
-    for (auto i = adjacencyList.begin(); i != adjacencyList.end(); i++)
+    // for(auto i = adjacencyList.begin(); i!=adjacencyList.end(); i++){
+    list<Edge> temp = adjacencyList[currindex];
+    // if(currindex == destination){
+    //   break;
+    // }
+    for (list<Edge>::iterator it = temp.begin(); it != temp.end(); ++it)
     {
-      list<Edge> temp = adjacencyList[currindex];
-      for (list<Edge>::iterator it = temp.begin(); it != temp.end(); ++it)
+      int neighborindex = it->index;
+      if (visited[neighborindex] == true)
       {
-        int neighborindex = it->index;
-        if (visited[neighborindex] == true)
-        {
-          continue; // if visited go to next neighbor
-        }
-        else
-        {
-          int edgeweight = it->edge;
-          newdist = distances[currindex] + edgeweight;
-
-          if (newdist < distances[neighborindex])
-          {
-            distances[neighborindex] = newdist;
-            pq.push(make_pair(distances[neighborindex], neighborindex));
-            previous[neighborindex] = currindex;
-          }
-        }
+        continue; // if visited go to next neighbor
       }
-    }
+      else
+      {
+        int edgeweight = it->edge;
+        newdist = distances[currindex] + edgeweight;
 
-    int curr = destination;
-    solution.push_back(curr);
-    while (curr != source)
-    {
-      int prev = previous[curr];
-      solution.push_back(prev);
-      curr = prev;
+        if (distances.find(neighborindex) == distances.end() || newdist < distances[neighborindex])
+        {
+          cout << neighborindex << " " << edgeweight << " " << newdist << endl;
+          distances[neighborindex] = newdist;
+          pq.push(make_pair(distances[neighborindex], neighborindex));
+          previous[neighborindex] = currindex;
+        }
+
+        // cout<< newdist << " " << distances[neighborindex]<< " " << neighborindex << endl;
+      }
+      // if(currindex == destination){break;}
     }
+    visited[currindex] = true;
   }
+  // for(unsigned int w=0; w<previous.size(); w++){
+  //   cout << previous[w] << endl;
+  // }
+  unsigned int curr = destination;
+  solution.push_back(curr);
+  while (curr != source)
+  {
+    unsigned int prev = previous[curr];
+    solution.push_back(prev);
+    curr = prev;
+  }
+
   std::reverse(solution.begin(), solution.end());
   for (unsigned int i = 0; i < solution.size(); i++)
   {
@@ -327,22 +333,22 @@ vector<int> Graph::Dijkstras(int source, int destination)
   return solution;
 }
 
-void Graph::Render(vector<int> shortestpath)
-{
-  // PNG rendered;
-  // rendered.readFromFile("5by5.png");
-  // vector<int> shortest = Dijkstra(0,25);
+// void Graph::Render(vector<int> shortestpath)
+// {
+// PNG rendered;
+// rendered.readFromFile("5by5.png");
+// vector<int> shortest = Dijkstra(0,25);
 
-  // for(unsigned int i=0; i<shortest; i++){
+// for(unsigned int i=0; i<shortest; i++){
 
-  //     HSLAPixel & pixel = rendered.getPixel()
-  // }
-  // rendered.writeToFile("5by5render.png");
+//     HSLAPixel & pixel = rendered.getPixel()
+// }
+// rendered.writeToFile("5by5render.png");
 
-  // for(unsigned int i=0; i<shortestpath.size(); i++){
-  //   std::cout<< shortestpath[i] << " " << std::endl;
-  // }
-}
+// for(unsigned int i=0; i<shortestpath.size(); i++){
+//   std::cout<< shortestpath[i] << " " << std::endl;
+// }
+// }
 
 // void Graph::getLum(PNG picture){
 //   width = picture.width();
