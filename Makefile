@@ -1,6 +1,6 @@
 
 # Executable names:
-EXE =
+EXE = main
 TEST = test
 
 # Add all object files needed for compiling:

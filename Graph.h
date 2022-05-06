@@ -13,32 +13,31 @@ class Graph
 {
 
 public:
-
   Graph(PNG image); // take in image & read luminance values
   int getLuminanceDifference(string direction, int i, int j);
   vector<int> Dijkstras(int source, int destination);
   void Render(vector<int> shortestpath);
+  vector<int> getIndex();
+  vector<int> getLuminance();
+  int getSize();
 
 private:
-
   struct Edge
   {
     int index;
     int edge; // = luminance diff = edge weight
   };
-
-  int width; // PNG width
+  int width;  // PNG width
   int height; // PNG height
 
   vector<int> index;
   vector<int> luminance;
   unsigned int numindex = index.size();
   unordered_map<int, list<Edge>> adjacencyList; // index, (node, luminace difference btwn nodes)
-  
 
   std::unordered_map<int, int> distances;
-  std::unordered_map<int,int> previous;
-  typedef pair<int,int> distanceNdindx;
+  std::unordered_map<int, int> previous;
+  typedef pair<int, int> distanceNdindx;
   priority_queue<distanceNdindx> pq;
   std::unordered_map<int, bool> visited;
   vector<int> solution;

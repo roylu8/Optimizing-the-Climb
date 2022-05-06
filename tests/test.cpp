@@ -11,13 +11,96 @@
 
 #include "../cs225/catch/catch.hpp"
 
-
 using namespace cs225;
 
-TEST_CASE("test"){
-std::cout << "testing"<<std::endl;
-PNG poopopo;
-poopopo.readFromFile("images/5by5.png");
-Graph hewo(poopopo);
-    REQUIRE (0==0);
+TEST_CASE("Test file works")
+{
+    REQUIRE(1 * 5 == 5);
+}
+
+TEST_CASE("Correctly assigned index to image")
+{
+    PNG image, image2;
+    image.readFromFile("tests/5by5test.png");
+    image2.readFromFile("tests/heightmaptest.png");
+    Graph testGraph(image);
+    Graph testGraph2(image2);
+    vector<int> correctVector;
+    vector<int> correctVector2;
+    for (unsigned i = 0; i < image.height() * image.width(); i++)
+    {
+        correctVector.push_back(i);
+    }
+    for (unsigned i = 0; i < image2.height() * image2.width(); i++)
+    {
+        correctVector2.push_back(i);
+    }
+
+    REQUIRE(testGraph.getIndex() == correctVector);
+    REQUIRE(testGraph2.getIndex() == correctVector2);
+}
+
+TEST_CASE("Correctly assigned lumincance to each index")
+{
+    PNG image, image2;
+    image.readFromFile("tests/5by5test.png");
+    image2.readFromFile("tests/heightmaptest.png");
+    Graph testGraph(image);
+    Graph testGraph2(image2);
+    vector<int> correctLuminance;
+    vector<int> correctLuminance2;
+    for (unsigned i = 0; i < image.height(); i++)
+    {
+        for (unsigned j = 0; j < image.width(); j++)
+        {
+            HSLAPixel &pixel = image.getPixel(j, i);
+            correctLuminance.push_back(pixel.l * 10);
+        }
+    }
+    for (unsigned i = 0; i < image2.height(); i++)
+    {
+        for (unsigned j = 0; j < image2.width(); j++)
+        {
+            HSLAPixel &pixel = image2.getPixel(j, i);
+            correctLuminance2.push_back(pixel.l * 10);
+        }
+    }
+
+    REQUIRE(testGraph.getLuminance() == correctLuminance);
+    REQUIRE(testGraph2.getLuminance() == correctLuminance2);
+}
+
+TEST_CASE("Adjacency list size is correct")
+{
+    PNG image, image2;
+    image.readFromFile("tests/5by5test.png");
+    image2.readFromFile("tests/heightmaptest.png");
+    int count = 0, count2 = 0;
+    for (unsigned i = 0; i < image.width(); i++)
+    {
+        for (unsigned j = 0; j < image.height(); j++)
+        {
+            count++;
+        }
+    }
+    for (unsigned i = 0; i < image2.width(); i++)
+    {
+        for (unsigned j = 0; j < image2.height(); j++)
+        {
+            count2++;
+        }
+    }
+    Graph testGraph(image);
+    Graph testGraph2(image2);
+
+    REQUIRE(testGraph.getSize() == count);
+    REQUIRE(testGraph2.getSize() == count2);
+}
+
+TEST_CASE("Adjacency list's edge object's indices are correct")
+{
+}
+
+TEST_CASE("Adjacency list's edge object's edgeweights are correct")
+{
 }
