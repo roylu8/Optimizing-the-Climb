@@ -16,8 +16,8 @@ public:
 
   Graph(PNG image); // take in image & read luminance values
   int getLuminanceDifference(string direction, int i, int j);
-  vector<int> Dijkstras(int source, int destination);
-  void Render(vector<int> shortestpath);
+  vector<int> Dijkstras(unsigned int source, unsigned int destination);
+  //void Render(vector<int> shortestpath);
 
 private:
 
@@ -39,7 +39,7 @@ private:
   std::unordered_map<int, int> distances;
   std::unordered_map<int,int> previous;
   typedef pair<int,int> distanceNdindx;
-  priority_queue<distanceNdindx> pq;
+  priority_queue<distanceNdindx , vector<distanceNdindx>, greater<distanceNdindx>> pq;
   std::unordered_map<int, bool> visited;
   vector<int> solution;
 };
