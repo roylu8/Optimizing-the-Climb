@@ -467,5 +467,5 @@ void Graph::A_StarRender(PNG image)
     HSLAPixel &pixel = image.getPixel(x, y);
     pixel = HSLAPixel(0, 1, 0.5, 1);
   }
-  image.writeToFile("images/resultA.png");
+  image.writeToFile("images/result.png");
 }

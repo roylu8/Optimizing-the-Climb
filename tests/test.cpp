@@ -156,7 +156,7 @@ TEST_CASE("A*'s test case small")
     generatedGraph.A_StarRender(input);
 
     PNG finalResult;
-    finalResult.readFromFile("images/resultA.png");
+    finalResult.readFromFile("images/result.png");
 
     PNG correctResult;
     correctResult.readFromFile("tests/5by5obviousanswerall.png");
@@ -173,7 +173,7 @@ TEST_CASE("A*'s test case big")
     generatedGraph.A_StarRender(input);
 
     PNG finalResult;
-    finalResult.readFromFile("images/resultA.png");
+    finalResult.readFromFile("images/result.png");
 
     PNG correctResult;
     correctResult.readFromFile("tests/20by20answerA.png");
@@ -190,7 +190,7 @@ TEST_CASE("A*'s test case large")
     generatedGraph.A_StarRender(input);
 
     PNG finalResult;
-    finalResult.readFromFile("images/resultA.png");
+    finalResult.readFromFile("images/result.png");
 
     PNG correctResult;
     correctResult.readFromFile("tests/700by700answerA.png");
