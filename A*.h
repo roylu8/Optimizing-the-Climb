@@ -3,13 +3,13 @@
 #include <queue>
 #include <vector>
 #include <map>
-#include "Graph_A.h"
+#include "Graph_A_A.h"
 #include <cmath>
 
 
-//similar Dijkstras but it gots a heurstic added to each node
-//this is an extension of Dijkstras
-//https://medium.com/@miguell.m/dijkstras-and-a-search-algorithm-2e67029d7749#:~:text=A%2A%20Search%20Algorithm%20is%20similar%20to%20Dijkstra%E2%80%99s%20in,the%20destination%2C%20and%20hopefully%20reducing%20the%20search%20space.
+//similar A_star but it gots a heurstic added to each node
+//this is an extension of A_star
+//https://medium.com/@miguell.m/A_star-and-a-search-algorithm-2e67029d7749#:~:text=A%2A%20Search%20Algorithm%20is%20similar%20to%20Dijkstra%E2%80%99s%20in,the%20destination%2C%20and%20hopefully%20reducing%20the%20search%20space.
 //overview of algorithm
 //we need a heurstic funtion
 //it should be a smell in maze
@@ -53,8 +53,9 @@ public:
 
   Graph_A(PNG image); // take in image & read luminance values
   int getLuminanceDifference(string direction, int i, int j);
-  vector<int> A_star(int source, int destination);
-  void Render(vector<int> shortestpath);
+  vector<int> A_star(unsigned int source, unsigned int destination);
+  //void Render(vector<int> shortestpath);
+  double heuristic(int currindex, int destination){
 
 private:
 
@@ -76,7 +77,7 @@ private:
   std::unordered_map<int, int> distances;
   std::unordered_map<int,int> previous;
   typedef pair<int,int> distanceNdindx;
-  priority_queue<distanceNdindx> pq;
+  priority_queue<distanceNdindx , vector<distanceNdindx>, greater<distanceNdindx>> pq;
   std::unordered_map<int, bool> visited;
   vector<int> solution;
 };

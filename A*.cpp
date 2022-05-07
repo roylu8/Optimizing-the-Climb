@@ -1,13 +1,13 @@
-
-#include "A*.h"
 #include "Graph.h"
 #include "cs225/PNG.h"
 #include "cs225/HSLAPixel.h"
+#include <cmath>
+
 using cs225::HSLAPixel;
 using cs225::PNG;
 
 // include cs 225 png class
-Graph::Graph(PNG image)
+Graph::Graph_A(PNG image)
 {
   width = image.width();
   height = image.height();
@@ -20,10 +20,11 @@ Graph::Graph(PNG image)
       HSLAPixel &pixel = image.getPixel(j, i);
 
       index.push_back(i * width + j);
-      luminance.push_back(pixel.l * 10);
+      int currlum = abs((pixel.l * 10)-10);
+      luminance.push_back(currlum);
     }
   }
-
+  
   // create list of adjacent indices & edges
   for (unsigned int currindex = 0; currindex < index.size(); currindex++)
   {
@@ -115,6 +116,8 @@ Graph::Graph(PNG image)
       edgeright.index = rightindex;
       edgeright.edge = getLuminanceDifference("right", x, y);
 
+      // cout << edgeright.index << " " << edgeright.edge << endl;
+
       adjnodes.push_back(edgedown);
       adjnodes.push_back(edgeright);
     }
@@ -176,29 +179,37 @@ Graph::Graph(PNG image)
     adjacencyList[x + y * width] = adjnodes;
   }
 
+  // for(auto i = adjacencyList.begin(); i!=adjacencyList.end(); i++){
+  //   list<Edge> temp = adjacencyList[0];
+  //   for(list<Edge>::iterator it = temp.begin(); it !=temp.end(); ++it){
+  //     cout << it->edge << " " << endl;
+  //   }
+  // }
+
   // for (auto &i : adjacencyList)
   // {
-  //   std::cout << i.first << " ";
+  //   //std::cout << i.first << " ";
   //   for (Edge item : i.second)
   //   {
-  //     std::cout << item.index << " ";
+  //     std::cout << item.edge << " ";
   //   }
   //   std::cout << endl;
+  //   break;
   // }
-  for (unsigned int i = 0; i < luminance.size(); i++)
-  {
-    std::cout << i << " " << luminance[i] << " " << std::endl;
-  }
+  // for (unsigned int i = 0; i < luminance.size(); i++)
+  // {
+  //   std::cout << i << " " << luminance[i] << " " << std::endl;
+  // }
 
-  PNG tester;
-  tester.readFromFile("images/5by5.png");
-  tester.getPixel(1, 2) = HSLAPixel(0, 1, 0.5, 1);
-  tester.writeToFile("images/tester.png");
+  // PNG tester;
+  // tester.readFromFile("images/5by5.png");
+  // tester.getPixel(1, 2) = HSLAPixel(0, 1, 0.5, 1);
+  // tester.writeToFile("images/tester.png");
 }
 
-int Graph::getLuminanceDifference(string direction, int x, int y)
+int Graph_A::getLuminanceDifference(string direction, int x, int y)
 {
-  int difference = 0;
+  int difference;
   if (direction == "up")
   {
     difference = luminance[x + (y - 1) * width] - luminance[x + y * width];
@@ -241,7 +252,6 @@ int Graph::getLuminanceDifference(string direction, int x, int y)
   }
 }
 
-
 A_star::heuristic(int currindex, int destination){
     /*
     back to 4d
@@ -265,76 +275,77 @@ A_star::heuristic(int currindex, int destination){
     return D*(dx+dy);
 
 }
-
-vector<int> A_star::A_star(int source, int destination)
-{ // take in indices of source and d
-  for (auto &v : visited)
-  {
-    v = false; // initialize visited bool to false
+vector<int> Graph_A::A_star(unsigned int source, unsigned int destination){ // take in indices of source and d 
+  const int INF = 0x3f3f3f3f;
+  for(unsigned int i=0; i<numindex; i++){
+    visited[i] = false; // initialize visited bool to false
   }
-  for (auto &i : distances)
-  {
-    i = 0x3f3f3f3f; // initialize distances to infinity except start
+  for(unsigned int j=0; j<index.size(); j++){
+    distances[j] = INF; // initialize distances
   }
   distances[source] = 0; // set source distance to zero
   int newdist = 0;
 
-  pq.push(make_pair(source, 0)); // start priority queue
+  pq.push(make_pair(0, source)); // start priority queue
 
-  while (pq.size() != 0)
-  {
+  while(pq.size() != 0){
     // get current node
-    int currindex = pq.top().first; 
-    pq.pop(); //move onto next in Q
+    unsigned int currindex = pq.top().second;
+    //cout<< currindex << endl;
+    pq.pop();
     // check if node is already visited
-    if (visited[currindex] == true)
-    {
-      break;
-    } // continue??
-    // set as visited
-    visited[currindex] = true; // if curr index visted break
-    // get neighbors
-    for (unsigned int i = currindex; i < adjanceyList.size(); i++)
-    {
-      for (unsigned int neighbor = 0; neighbor < adjacencyList[currindex].size(); neighbor++)
-      {
-        list<Edge> temp = adjacencyList[currindex];
-        int neighborindex = temp[neighbor].index;
+    
+      list<Edge> temp = adjacencyList[currindex];
 
-        if (visited[neighborindex] == true)
-        {
+      for(list<Edge>::iterator it = temp.begin(); it !=temp.end(); ++it){ 
+        int neighborindex = it->index;
+        if(visited[neighborindex] == true){
           continue; // if visited go to next neighbor
         }
-        else
-        {
-
-
-        //new distance calcluation for heurstic should go somewhere here
-        
-        
-          int edgeweight = temp[neighbor].edge;
-          newdist = distances[currindex] + edgeweight; //modify this to take H output
-
-                    if(newdist < dist[neighborindex]])
-                    {
-                        distances[neighborindex]] = newdist + heuristic(currindex, destination); //or maybe here
-                        pq.push(make_pair(distances[neighborindex], neighborindex));
-                        previous[neighborindex] = currindex;
-                    }
+        else{
+          int edgeweight = it->edge;
+          newdist = distances[currindex] + edgeweight + heuristic(unsigned int source, unsigned int destination);
+      
+          if(distances.find(neighborindex) == distances.end() || newdist < distances[neighborindex]){
+            cout << neighborindex << " " << edgeweight << " " << newdist << endl;
+            distances[neighborindex] = newdist;
+            pq.push(make_pair(distances[neighborindex], neighborindex));
+            previous[neighborindex] = currindex;
+          }
+          
         }
       }
+      visited[currindex] = true;
     }
-    vector<int> solution;
-
-    int curr = destination;
+    unsigned int curr = destination;
     solution.push_back(curr);
-    while (curr != source)
-    {
-      int prev = previous[curr];
+    while(curr != source){
+      unsigned int prev = previous[curr];
       solution.push_back(prev);
       curr = prev;
     }
-    std::reverse(solution.begin(), solution.end());
-    return solution;
+
+  std::reverse(solution.begin(), solution.end());
+  for(unsigned int i=0; i<solution.size(); i++){
+    std::cout<< solution[i] << " " << std::endl;
   }
+  return solution;
 }
+
+
+// void Graph::Render(vector<int> shortestpath){
+//     PNG rendered;
+//     rendered.readFromFile("5by5.png");
+    
+//     for(unsigned int i=0; i<shortestpath.size(); i++){
+//       int x = i % width;
+//       int y = i / width;
+//       HSLAPixel & pixel = rendered.getPixel(x,y);
+//       pixel = HSLAPixel(0, 1, 0.5, 1);
+//     }
+//     rendered.writeToFile("5by5render.png");
+
+//     // for(unsigned int i=0; i<shortestpath.size(); i++){
+//     //   std::cout<< shortestpath[i] << " " << std::endl;
+//     // }
+// }
