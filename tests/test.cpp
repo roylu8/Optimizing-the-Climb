@@ -17,9 +17,12 @@ using namespace cs225;
 TEST_CASE("test"){
 std::cout << "testing"<<std::endl;
 PNG image;
-image.readFromFile("images/input2.png");
+image.readFromFile("images/700by700.png");
 Graph testgraph(image);
-testgraph.Dijkstras(0,24);
+testgraph.Dijkstras(0,300000);
+testgraph.Render(image);
+//image.writeToFile("images/461by451output.png");
+
 //testgraph.Render(shortest);
     REQUIRE (0==0);
 }

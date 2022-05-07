@@ -253,12 +253,8 @@ int Graph::getLuminanceDifference(string direction, int x, int y)
 }
 
 vector<int> Graph::Dijkstras(unsigned int source, unsigned int destination){ // take in indices of source and d 
-  const int INF = 0x3f3f3f3f;
   for(unsigned int i=0; i<numindex; i++){
     visited[i] = false; // initialize visited bool to false
-  }
-  for(unsigned int j=0; j<index.size(); j++){
-    distances[j] = INF; // initialize distances
   }
   distances[source] = 0; // set source distance to zero
   int newdist = 0;
@@ -281,20 +277,25 @@ vector<int> Graph::Dijkstras(unsigned int source, unsigned int destination){ // 
       // }
       for(list<Edge>::iterator it = temp.begin(); it !=temp.end(); ++it){ 
         int neighborindex = it->index;
+        //cout << neighborindex << endl;
         if(visited[neighborindex] == true){
           continue; // if visited go to next neighbor
         }
         else{
           int edgeweight = it->edge;
+          //cout << "Edgeweight" << " " << edgeweight << endl;
           newdist = distances[currindex] + edgeweight;
-      
+         // cout << "newdist:" << " " << edgeweight << endl;
+         // cout << "diasfindneighbor" << " " << distances.find(neighborindex) << endl;
+          
+
           if(distances.find(neighborindex) == distances.end() || newdist < distances[neighborindex]){
-            cout << neighborindex << " " << edgeweight << " " << newdist << endl;
+            //cout << "nindex" << " " << neighborindex << endl;
+            //cout << neighborindex << " " << edgeweight << " " << newdist << endl;
             distances[neighborindex] = newdist;
             pq.push(make_pair(distances[neighborindex], neighborindex));
             previous[neighborindex] = currindex;
           }
-          
           //cout<< newdist << " " << distances[neighborindex]<< " " << neighborindex << endl;
         }
         //if(currindex == destination){break;}
@@ -319,20 +320,12 @@ vector<int> Graph::Dijkstras(unsigned int source, unsigned int destination){ // 
   return solution;
 }
 
-
-// void Graph::Render(vector<int> shortestpath){
-//     PNG rendered;
-//     rendered.readFromFile("5by5.png");
-    
-//     for(unsigned int i=0; i<shortestpath.size(); i++){
-//       int x = i % width;
-//       int y = i / width;
-//       HSLAPixel & pixel = rendered.getPixel(x,y);
-//       pixel = HSLAPixel(0, 1, 0.5, 1);
-//     }
-//     rendered.writeToFile("5by5render.png");
-
-//     // for(unsigned int i=0; i<shortestpath.size(); i++){
-//     //   std::cout<< shortestpath[i] << " " << std::endl;
-//     // }
-// }
+void Graph::Render(PNG image){
+    for(unsigned int i=0; i<solution.size(); i++){
+      int x = solution[i] % width;
+      int y = solution[i] / width;
+      HSLAPixel & pixel = image.getPixel(x,y);
+      pixel = HSLAPixel(0, 1, 0.5, 1);
+    }
+    image.writeToFile("images/700by700render.png");
+}

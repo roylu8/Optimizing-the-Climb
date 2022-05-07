@@ -17,7 +17,7 @@ public:
   Graph(PNG image); // take in image & read luminance values
   int getLuminanceDifference(string direction, int i, int j);
   vector<int> Dijkstras(unsigned int source, unsigned int destination);
-  //void Render(vector<int> shortestpath);
+  void Render(PNG image);
 
 private:
 
@@ -27,6 +27,7 @@ private:
     int edge; // = luminance diff = edge weight
   };
 
+  PNG image;
   int width; // PNG width
   int height; // PNG height
 
