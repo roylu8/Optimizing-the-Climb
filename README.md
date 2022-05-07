@@ -6,7 +6,8 @@
 * Will Marshall (wjm5)
 
 ## Deliverables (Also in main branch)
-* [Presentation Video](https://www.youtube.com/watch?v=vRzmfvQZMzo&ab_channel=WilliamMarshall)
+* [Report](https://docs.google.com/document/d/1k2o9qTrFY8THpSg8V40tUWD97CVE1SHbEtfRH16D10I/edit?usp=sharing)
+* [Presentation Video](https://www.youtube.com/watch?v=3xf8mlpjxbE&ab_channel=WilliamMarshall)
 * [Presentation Slides](https://docs.google.com/presentation/d/1FTFySXaA5yO_qtD9PHo1kwkYB0B3H1eW/edit?usp=sharing&ouid=102768588260919984611&rtpof=true&sd=true)
 
 ## Overview
@@ -24,10 +25,14 @@ The program can be ran by using the 'finalproject' executable:
 make all
 ./finalproject
 ```
-The user would first choose a heightmap from the folder `images` (enter number 1-6). If the custom option was chosen, an example entry would be: `images/custom.png`.
-Afterwards, the user needs to pick an algorithm (enter number 1-2). Lastly, enter start pixel (1-max pixels of image) and end pixel (1-max pixels of image). Please make sure the start pixel is less than the end pixel and that pixel values are in range. Pixels are counted by rows and the starting index is 1.
+1) The user would first choose a heightmap from the folder `images` (enter number 1-6). If the custom option was chosen, an example entry would be: `images/custom.png`.
+
+2) Afterwards, the user needs to pick an algorithm (enter number 1-2). 
+
+3) Lastly, enter start pixel (1-max pixels of image) and end pixel (1-max pixels of image). Please make sure the start pixel is less than the end pixel and that pixel values are in range. Pixels are counted by rows and the starting index is 1.
  
-After computation, the result image would be saved at `images/result.png`.  
+4) After computation, the result image would be saved at `images/result.png`.  
+
 To end the program anytime, use `Ctrl+C`.
 
 ## Main function description
