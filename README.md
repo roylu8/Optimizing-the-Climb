@@ -29,7 +29,7 @@ make all
 
 2) Afterwards, the user needs to pick an algorithm (enter number 1-2). 
 
-3) Lastly, enter start pixel (1-max pixels of image) and end pixel (1-max pixels of image). Please make sure the start pixel is less than the end pixel and that pixel values are in range. Pixels are counted by rows and the starting index is 1.
+3) Lastly, enter start pixel (1-max pixels of image) and end pixel (1-max pixels of image). Please make sure the start pixel is less than the end pixel and that pixel values are in range. Pixels are counted from left to right and continues after every row. The starting index is 1.
  
 4) After computation, the result image would be saved at `images/result.png`.  
 
