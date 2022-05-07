@@ -71,3 +71,17 @@ We all sorta started working on different versions of the graph class/drijstikas
 
 ### Goals for the following week
 Finish the MP early so that we can work on the final project. Find a way to make test cases for drijstikas algorithm.
+
+# Week 6 (5/2):
+
+### Goals of the week and were they accomplished?
+Finishing Dijkstra's algorithm was the main goal of the week since it was the one function we needed to expand and verify. This goal was accomplished. Make the render function show the output. Also finished. Create the A* algorithm and heuristic function. Mostly finished but buggy. Create BFS. Implement the test cases needed to verify the code.
+
+### Tasks of each member
+David and Will worked on the slides while also looking for sources for A* algorithm. Jumana and Roy focused on finishing up dijkstras algorihmn.
+
+### Obstacles to Goals
+We all sorta started working on different versions of the graph class/drijstikas algorithm in hopes one of them will stick. This slowed down our progress since we didn’t really have a concrete way of telling which method was better until a TA from the office would show up every hour. We also feel that we reached a roadblock that we still do not know how to overcome.
+
+### Goals for the following week
+Finish the MP early so that we can work on the final project. Find a way to make test cases for drijstikas algorithm.
