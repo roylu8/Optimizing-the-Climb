@@ -1,11 +1,11 @@
 
 # Executable names:
-EXE = main
+EXE = finalproject
 TEST = test
 
 # Add all object files needed for compiling:
 EXE_OBJ = main.o
-OBJS = main.o Graph.o Dijkstra.o
+OBJS = main.o Graph.o
 
 # Generated files
 
