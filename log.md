@@ -78,10 +78,10 @@ Finish the MP early so that we can work on the final project. Find a way to make
 Finishing Dijkstra's algorithm was the main goal of the week since it was the one function we needed to expand and verify. This goal was accomplished. Make the render function show the output. Also finished. Create the A* algorithm and heuristic function. Mostly finished but buggy. Create BFS. Implement the test cases needed to verify the code.
 
 ### Tasks of each member
-David and Will worked on the slides while also looking for sources for A* algorithm. Jumana and Roy focused on finishing up dijkstras algorihmn.
+Jumana and David worked on Dijkstra. In moments, one of us would do research and try A* off to the side. Roy worked on all the test cases and got the main setup. Will work on getting the presentation finished up, writing a report, and gathering more information on BFS.
 
 ### Obstacles to Goals
-We all sorta started working on different versions of the graph class/drijstikas algorithm in hopes one of them will stick. This slowed down our progress since we didn’t really have a concrete way of telling which method was better until a TA from the office would show up every hour. We also feel that we reached a roadblock that we still do not know how to overcome.
+The MP took up all our time at the beginning of the week, we decided to try our luck at it for a day and then move on. Throughout the week, we found it difficult to schedule a time to work because of finals but regardless we pushed through and got working all day Thursday and Friday.
 
 ### Goals for the following week
-Finish the MP early so that we can work on the final project. Find a way to make test cases for drijstikas algorithm.
+Relax :)
