@@ -17,7 +17,10 @@ public:
   Graph(PNG image); // take in image & read luminance values
   int getLuminanceDifference(string direction, int i, int j);
   vector<int> Dijkstras(unsigned int source, unsigned int destination);
-  void Render(PNG image);
+  void Render(PNG image, PNG output);
+
+  vector<int> A_Star(unsigned int source, unsigned int destination);
+  int heuristic(int currindex, int destination);
 
 private:
 
@@ -43,4 +46,5 @@ private:
   priority_queue<distanceNdindx , vector<distanceNdindx>, greater<distanceNdindx>> pq;
   std::unordered_map<int, bool> visited;
   vector<int> solution;
+  vector<int> astarsolution;
 };

@@ -45,9 +45,6 @@ Graph::Graph(PNG image)
 
     if (x == 0 && y != 0 && y != height - 1)
     { // far left
-      // Edge edgeup;
-      // Edge edgedown;
-      // Edge edgeright;
       edgeup.index = upindex;
       edgeup.edge = getLuminanceDifference("up", x, y);
       edgedown.index = downindex;
@@ -61,9 +58,6 @@ Graph::Graph(PNG image)
     }
     else if (y == 0 && x != 0 && x != width - 1)
     { // far up
-      // Edge edgedown;
-      // Edge edgeright;
-      // Edge edgeleft;
       edgedown.index = downindex;
       edgedown.edge = getLuminanceDifference("down", x, y);
       edgeleft.index = leftindex;
@@ -77,9 +71,6 @@ Graph::Graph(PNG image)
     }
     else if (x == width - 1 && y != 0 && y != height - 1)
     { // far right
-      // Edge edgeup;
-      // Edge edgedown;
-      // Edge edgeleft;
       edgeup.index = upindex;
       edgeup.edge = getLuminanceDifference("up", x, y);
       edgedown.index = downindex;
@@ -109,22 +100,16 @@ Graph::Graph(PNG image)
     }
     else if (x == 0 && y == 0)
     { // upper left corner
-      // Edge edgedown;
-      // Edge edgeright;
       edgedown.index = downindex;
       edgedown.edge = getLuminanceDifference("down", x, y);
       edgeright.index = rightindex;
       edgeright.edge = getLuminanceDifference("right", x, y);
-
-      // cout << edgeright.index << " " << edgeright.edge << endl;
 
       adjnodes.push_back(edgedown);
       adjnodes.push_back(edgeright);
     }
     else if (x == height - 1 && y == width - 1)
     { // lower right corner
-      // Edge edgeup;
-      // Edge edgeleft;
       edgeup.index = upindex;
       edgeup.edge = getLuminanceDifference("up", x, y);
       edgeleft.index = leftindex;
@@ -135,8 +120,6 @@ Graph::Graph(PNG image)
     }
     else if (x == width - 1 && y == 0)
     { // upper right corner
-      // Edge edgedown;
-      // Edge edgeleft;
       edgedown.index = downindex;
       edgedown.edge = getLuminanceDifference("down", x, y);
       edgeleft.index = leftindex;
@@ -147,8 +130,6 @@ Graph::Graph(PNG image)
     }
     else if (y == height - 1 && x == 0)
     { // lower left corner
-      // Edge edgeup;
-      // Edge edgeright;
       edgeup.index = upindex;
       edgeup.edge = getLuminanceDifference("up", x, y);
       edgeright.index = rightindex;
@@ -159,10 +140,6 @@ Graph::Graph(PNG image)
     }
     else
     { // middle
-      // Edge edgeup;
-      // Edge edgedown;
-      // Edge edgeright;
-      // Edge edgeleft;
       edgeup.index = upindex;
       edgeup.edge = getLuminanceDifference("up", x, y);
       adjnodes.push_back(edgeup);
@@ -178,33 +155,6 @@ Graph::Graph(PNG image)
     }
     adjacencyList[x + y * width] = adjnodes;
   }
-
-  // for(auto i = adjacencyList.begin(); i!=adjacencyList.end(); i++){
-  //   list<Edge> temp = adjacencyList[0];
-  //   for(list<Edge>::iterator it = temp.begin(); it !=temp.end(); ++it){
-  //     cout << it->edge << " " << endl;
-  //   }
-  // }
-
-  // for (auto &i : adjacencyList)
-  // {
-  //   //std::cout << i.first << " ";
-  //   for (Edge item : i.second)
-  //   {
-  //     std::cout << item.edge << " ";
-  //   }
-  //   std::cout << endl;
-  //   break;
-  // }
-  // for (unsigned int i = 0; i < luminance.size(); i++)
-  // {
-  //   std::cout << i << " " << luminance[i] << " " << std::endl;
-  // }
-
-  // PNG tester;
-  // tester.readFromFile("images/5by5.png");
-  // tester.getPixel(1, 2) = HSLAPixel(0, 1, 0.5, 1);
-  // tester.writeToFile("images/tester.png");
 }
 
 int Graph::getLuminanceDifference(string direction, int x, int y)
@@ -264,6 +214,88 @@ vector<int> Graph::Dijkstras(unsigned int source, unsigned int destination){ // 
   while(pq.size() != 0){
     // get current node
     unsigned int currindex = pq.top().second;
+    pq.pop();
+
+    list<Edge> temp = adjacencyList[currindex];
+    for(list<Edge>::iterator it = temp.begin(); it !=temp.end(); ++it){ 
+      int neighborindex = it->index;
+      if(visited[neighborindex] == true){
+        continue; // if visited go to next neighbor
+      }
+      else{
+        int edgeweight = it->edge;
+        newdist = distances[currindex] + edgeweight;
+        if(distances.find(neighborindex) == distances.end() || newdist < distances[neighborindex]){
+          distances[neighborindex] = newdist;
+          pq.push(make_pair(distances[neighborindex], neighborindex));
+          previous[neighborindex] = currindex;
+        }
+      }
+    }
+    visited[currindex] = true;
+    }
+    unsigned int curr = destination;
+    solution.push_back(curr);
+    while(curr != source){
+      unsigned int prev = previous[curr];
+      solution.push_back(prev);
+      curr = prev;
+    }
+
+  std::reverse(solution.begin(), solution.end());
+  for(unsigned int i=0; i<solution.size(); i++){
+    std::cout<< solution[i] << " " << std::endl;
+  }
+  return solution;
+}
+
+void Graph::Render(PNG image, PNG output){
+    for(unsigned int i=0; i<solution.size(); i++){
+      int x = solution[i] % width;
+      int y = solution[i] / width;
+      HSLAPixel & pixel = image.getPixel(x,y);
+      pixel = HSLAPixel(0, 1, 0.5, 1);
+    }
+    output.writeToFile("images/20by20testrender.png");
+}
+
+int Graph::heuristic(int currindex, int destination){
+    /*
+    back to 4d
+    function heuristic(node) =
+    dx = abs(node.x - goal.x)
+    dy = abs(node.y - goal.y)
+    return D *(dx+dy);
+    */
+    //D=1
+    
+    int x = currindex % width;
+    int y = currindex / width;
+    //nodes are the vertices we are comparing
+    //current idex vs neightbor
+    int x_d = destination % width;
+    int y_d = destination / width; 
+
+    //figure out D. Either 0 or 1;
+    int D=1;
+    int dx = abs(x - x_d);
+    int dy = abs(y - y_d);
+    return D*(dx+dy);
+
+}
+
+vector<int> Graph::A_Star(unsigned int source, unsigned int destination){ // take in indices of source and d 
+  for(unsigned int i=0; i<numindex; i++){
+    visited[i] = false; // initialize visited bool to false
+  }
+  distances[source] = 0; // set source distance to zero
+  int newdist = 0;
+
+  pq.push(make_pair(0, source)); // start priority queue
+
+  while(pq.size() != 0){
+    // get current node
+    unsigned int currindex = pq.top().second;
     //cout<< currindex << endl;
     pq.pop();
     // check if node is already visited
@@ -291,10 +323,11 @@ vector<int> Graph::Dijkstras(unsigned int source, unsigned int destination){ // 
 
           if(distances.find(neighborindex) == distances.end() || newdist < distances[neighborindex]){
             //cout << "nindex" << " " << neighborindex << endl;
-            //cout << neighborindex << " " << edgeweight << " " << newdist << endl;
             distances[neighborindex] = newdist;
-            pq.push(make_pair(distances[neighborindex], neighborindex));
+            double f = heuristic(neighborindex, destination) + newdist;
+            pq.push(make_pair(f, neighborindex));
             previous[neighborindex] = currindex;
+            cout << heuristic(neighborindex, destination) << endl;
           }
           //cout<< newdist << " " << distances[neighborindex]<< " " << neighborindex << endl;
         }
@@ -306,26 +339,16 @@ vector<int> Graph::Dijkstras(unsigned int source, unsigned int destination){ // 
     //   cout << previous[w] << endl;
     // }
     unsigned int curr = destination;
-    solution.push_back(curr);
+    astarsolution.push_back(curr);
     while(curr != source){
       unsigned int prev = previous[curr];
-      solution.push_back(prev);
+      astarsolution.push_back(prev);
       curr = prev;
     }
 
-  std::reverse(solution.begin(), solution.end());
+  std::reverse(solution.begin(), astarsolution.end());
   for(unsigned int i=0; i<solution.size(); i++){
-    std::cout<< solution[i] << " " << std::endl;
+    std::cout<< astarsolution[i] << " " << std::endl;
   }
-  return solution;
-}
-
-void Graph::Render(PNG image){
-    for(unsigned int i=0; i<solution.size(); i++){
-      int x = solution[i] % width;
-      int y = solution[i] / width;
-      HSLAPixel & pixel = image.getPixel(x,y);
-      pixel = HSLAPixel(0, 1, 0.5, 1);
-    }
-    image.writeToFile("images/700by700render.png");
+  return astarsolution;
 }

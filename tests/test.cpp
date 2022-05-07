@@ -17,10 +17,14 @@ using namespace cs225;
 TEST_CASE("test"){
 std::cout << "testing"<<std::endl;
 PNG image;
-image.readFromFile("images/700by700.png");
+image.readFromFile("images/20by20test.png");
+PNG output;
+output.readFromFile("images/20by20test.png");
 Graph testgraph(image);
-testgraph.Dijkstras(0,300000);
-testgraph.Render(image);
+testgraph.Dijkstras(0,399);
+//testgraph.A_Star(0,399);
+testgraph.Render(image, output);
+//output.writeToFile("images/20by20testrender.png");
 //image.writeToFile("images/461by451output.png");
 
 //testgraph.Render(shortest);
